@@ -3,9 +3,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const checkAuth = require("./utils/checkAuth");
 const multer = require("multer");
-const InstModel = require('./models/Instagram');
+const InstModel = require("./models/Instagram");
 const { register, logIn, getMe } = require("./controllers/UserController");
-const cors = require('cors');
+const cors = require("cors");
 const {
   registerValidation,
   loginValidation,
@@ -20,9 +20,7 @@ const {
 } = require("./controllers/PostController");
 
 mongoose
-  .connect(
-    "mongodb+srv://admin:admin@cluster0.vtxdyc5.mongodb.net/blog1?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log(" DB Ok");
   })
@@ -81,7 +79,7 @@ app.post("/inst", async (req, res) => {
   }
 });
 
-app.listen(PORT, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     console.log(err);
   }
